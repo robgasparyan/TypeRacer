@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.typeracer.viewModel.MyHistoryPageVM" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.MyHistoryPageFragment">
+
+        <TextView
+            android:id="@+id/average_wpm"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/history_pager_title_bar_height"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:text="@string/wpm"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            android:visibility="@{viewModel.myRaceHistoryAdapter != null}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/history_pager_title_bar_height"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:gravity="center_vertical|end"
+            android:text="@string/date"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            android:visibility="@{viewModel.myRaceHistoryAdapter != null}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/title_bottom_separator_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/colorLightOrange"
+            app:layout_constraintTop_toBottomOf="@id/average_wpm" />
+
+        <ProgressBar
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:visibility="@{viewModel.showProgress}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.myRaceHistoryAdapter != null}"
+            app:adapter="@{viewModel.myRaceHistoryAdapter}"
+            app:itemDecoration="@{@color/colorLightOrange}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/title_bottom_separator_line" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

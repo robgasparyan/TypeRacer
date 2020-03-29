@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.typeracer.util.TextHelper" />
+
+        <variable
+            name="item"
+            type="com.example.typeracer.repo.model.UserRace" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/race_history_row_height"
+        android:padding="@dimen/_10sdp">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:text="@{item.name}"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Lorem ipsum" />
+
+        <TextView
+            android:id="@+id/average_wpm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="start"
+            android:text="@{Double.toString(item.averageWpm)}"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/date"
+            app:layout_constraintStart_toEndOf="@+id/name"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="241.2" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:text="@{TextHelper.getDateTimeFromTimeStamp(item.lastPlayedTime)}"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="11:27 / 25.03.2020"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

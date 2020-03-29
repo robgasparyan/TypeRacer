@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.typeracer.viewModel.TopHistoryPageVM" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragment.TopHistoryPageFragment">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/history_pager_title_bar_height"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:gravity="center_vertical|start"
+            android:text="@string/name"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{viewModel.topHistoryAdapter != null}" />
+
+        <TextView
+            android:id="@+id/average_wpm"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/history_pager_title_bar_height"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:text="@string/avg_wpm"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/date"
+            app:layout_constraintStart_toEndOf="@+id/name"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="@{viewModel.topHistoryAdapter != null}" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/history_pager_title_bar_height"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:ellipsize="end"
+            android:gravity="center_vertical|end"
+            android:text="@string/last_played_time"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="@{viewModel.topHistoryAdapter != null}"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="@color/colorLightOrange"
+            app:layout_constraintTop_toBottomOf="@id/name"
+            android:visibility="@{viewModel.topHistoryAdapter != null}" />
+
+        <ProgressBar
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:visibility="@{viewModel.showProgress}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.topHistoryAdapter != null}"
+            app:adapter="@{viewModel.topHistoryAdapter}"
+            app:itemDecoration="@{@color/colorLightOrange}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/name" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

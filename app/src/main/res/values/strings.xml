@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">TypeRacer</string>
+
+    <string name="last">Last</string>
+    <string name="top">Top</string>
+    <string name="my">My</string>
+    <string name="name">name</string>
+    <string name="avg_wpm">avg. wpm</string>
+    <string name="last_played_time">last played time</string>
+    <string name="wpm">wpm</string>
+    <string name="date">date</string>
+    <string name="error_msg">Something went wrong please try again later</string>
+    <string name="history">history</string>
+    <string name="type_race">type race</string>
+
+</resources>
