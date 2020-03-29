@@ -16,7 +16,6 @@ object FragmentHelper {
         val manager = getFragmentManager(activity)
         manager.beginTransaction()
             .add(frameId, fragment, fragment.javaClass.toString())
-            .addToBackStack(null)
             .commitAllowingStateLoss()
         manager.executePendingTransactions()
     }

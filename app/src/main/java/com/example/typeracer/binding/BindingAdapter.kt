@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.typeracer.adapter.DividerItemDecoration
+import com.google.android.material.textfield.TextInputLayout
 
 
 @BindingAdapter("android:visibility")
@@ -29,4 +30,11 @@ fun bindViewPagerTabs(view: TabLayout, pagerView: ViewPager?) {
 fun RecyclerView.itemDecoration(@ColorInt color: Int) {
     val decorator =  DividerItemDecoration (color, 2)
     addItemDecoration(decorator)
+}
+
+@BindingAdapter("errorText")
+fun setErrorMessage(view: TextInputLayout, errorMessage: String?) {
+    errorMessage.let {
+        view.error = it
+    }
 }

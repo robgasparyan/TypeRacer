@@ -3,5 +3,6 @@
 
     <dimen name="history_pager_title_bar_height">@dimen/_34sdp</dimen>
     <dimen name="race_history_row_height">@dimen/_40sdp</dimen>
+    <dimen name="login_editable_fields_margin">@dimen/_30sdp</dimen>
 
 </resources>

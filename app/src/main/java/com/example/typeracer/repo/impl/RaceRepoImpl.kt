@@ -1,6 +1,8 @@
-package com.example.typeracer.repo
+package com.example.typeracer.repo.impl
 
 import android.util.Log
+import com.example.typeracer.repo.RaceRepo
+import com.example.typeracer.repo.ResponseListener
 import com.example.typeracer.repo.rest.RetrofitClient
 import com.example.typeracer.repo.model.PostResponse
 import com.example.typeracer.repo.model.Race

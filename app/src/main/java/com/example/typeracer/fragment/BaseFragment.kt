@@ -13,7 +13,7 @@ import com.example.typeracer.viewModel.BaseVM
 
 abstract class BaseFragment<T : ViewDataBinding, V : BaseVM> : Fragment() {
 
-    private lateinit var viewDataBinding: T
+    lateinit var viewDataBinding: T
 
     /**
      * Override for set binding variable

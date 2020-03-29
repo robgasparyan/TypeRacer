@@ -26,11 +26,11 @@ object RetrofitClient {
 
     private fun okHttpClient(): OkHttpClient {
         return OkHttpClient().newBuilder()
-            .cache(null)
             .addInterceptor(getClientInterceptor())
             .build()
     }
 
+    //MakeRetryableCall
     private fun getClientInterceptor() = Interceptor { chain ->
         // try the request
         var tryCount = 0

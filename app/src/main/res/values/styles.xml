@@ -1,11 +1,20 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="MyTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="boxStrokeColor">@color/colorPrimary</item>
+        <item name="colorOnBackground">@android:color/white</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/_6sdp</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/_6sdp</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/_6sdp</item>
+        <item name="boxCornerRadiusTopStart">@dimen/_6sdp</item>
     </style>
 
 </resources>

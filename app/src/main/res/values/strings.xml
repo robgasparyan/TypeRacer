@@ -12,5 +12,15 @@
     <string name="error_msg">Something went wrong please try again later</string>
     <string name="history">history</string>
     <string name="type_race">type race</string>
+    <string name="push">push</string>
+    <string name="reload">reload</string>
+    <string name="log_in_ore_create_if_does_not_exists">Log In ore create if does not exists</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login_or_register">login or register</string>
+    <string name="password_requirements">Password must have at least 6 characters and contain upper case, lower case</string>
+    <string name="password_can_not_be_empty">You must fill password field</string>
+    <string name="log_in_failed">Log in failed</string>
+    <string name="registration_failed">Registration failed</string>
 
 </resources>
