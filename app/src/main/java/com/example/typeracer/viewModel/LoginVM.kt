@@ -1,6 +1,7 @@
 package com.example.typeracer.viewModel
 
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import androidx.databinding.ObservableField
 import android.util.Patterns
@@ -32,11 +33,17 @@ class LoginVM(app: Application) : BaseVM(app) {
         }
     }
 
+    private fun openMainActivity(context: Context) {
+        val intent = Intent(context, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent)
+    }
+
     private fun registerNewUser() {
         val appContext = getApplication<TypeRacerApplication>().applicationContext
         firebaseAuthManager.signUp(email.get(), password.get(), {
             dismissProgressBar()
-            appContext.startActivity(Intent(appContext, MainActivity::class.java))
+            openMainActivity(appContext)
         }, {
             dismissProgressBar()
             Toast.makeText(appContext, R.string.registration_failed, Toast.LENGTH_LONG).show()
@@ -48,7 +55,7 @@ class LoginVM(app: Application) : BaseVM(app) {
         val appContext = getApplication<TypeRacerApplication>().applicationContext
         firebaseAuthManager.login(email.get(), password.get(), {
             dismissProgressBar()
-            appContext.startActivity(Intent(appContext, MainActivity::class.java))
+            openMainActivity(appContext)
         }, {
             dismissProgressBar()
             Toast.makeText(appContext, R.string.log_in_failed, Toast.LENGTH_LONG).show()
