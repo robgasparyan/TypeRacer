@@ -14,7 +14,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
 
     viewModel { LoginVM(get()) }
-    viewModel { TypeVM(get(), get(), get()) }
+    viewModel { TypeVM(get(), get()) }
     viewModel { (fm: FragmentManager) -> HistoryVM(get(), get { parametersOf(fm) }) }
     viewModel { LastHistoryPageVM(get(), get()) }
     viewModel { TopHistoryPageVM(get(), get()) }
