@@ -5,8 +5,6 @@
 
     <data>
 
-        <import type="com.example.typeracer.util.TextHelper" />
-
         <variable
             name="item"
             type="com.example.typeracer.repo.model.Race" />
@@ -38,14 +36,14 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="end"
-            android:text="@{TextHelper.getDateTimeFromTimeStamp(item.time)}"
             android:textColor="@color/colorSecondary"
             android:textSize="@dimen/_10sdp"
             android:textStyle="italic"
+            app:dateFormatText="@{item.time}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="11:27 / 25.03.2020"/>
+            tools:text="19 seconds ago" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

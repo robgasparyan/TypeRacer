@@ -1,6 +1,5 @@
 package com.example.typeracer.repo.impl
 
-import android.util.Log
 import com.example.typeracer.repo.RaceRepo
 import com.example.typeracer.repo.ResponseListener
 import com.example.typeracer.repo.rest.RetrofitClient
@@ -18,8 +17,6 @@ import retrofit2.Response
 
 
 class RaceRepoImpl : RaceRepo {
-
-    private val logTag = javaClass.canonicalName
 
     private var jsonApiId: String? = Preferences.getString(PrefConstants.MY_JSON_API_ID, "6x7qw")
 
@@ -101,7 +98,6 @@ class RaceRepoImpl : RaceRepo {
                 }
 
                 override fun onFailure(call: Call<Map<String, RaceResult>>, t: Throwable) {
-                    Log.w(logTag, "getBins/ error message = ${t.message}")
                     listener.onFailure()
                 }
             })
@@ -151,12 +147,11 @@ class RaceRepoImpl : RaceRepo {
                 override fun onResponse(call: Call<PostResponse>, res: Response<PostResponse>) {
                     val splitResponse = res.body()?.uri?.split("/")
                     val id = splitResponse?.get(splitResponse.size - 1)
-                    Log.d(logTag, "postBins/ jsonApiId = $id")
                     cb(id)
                 }
 
                 override fun onFailure(call: Call<PostResponse>, t: Throwable) {
-                    Log.w(logTag, "postBins/ error message = ${t.message}")
+
                 }
             })
     }
@@ -175,7 +170,6 @@ class RaceRepoImpl : RaceRepo {
                 }
 
                 override fun onFailure(call: Call<Map<String, RaceResult>>, t: Throwable) {
-                    Log.w(logTag, "putBins/ error message = ${t.message}")
                     listener.onFailure()
                 }
             })

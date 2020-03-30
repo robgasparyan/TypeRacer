@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="@dimen/_240sdp"
+        android:layout_height="@dimen/_160sdp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/win_dialog_bg"
+        android:padding="@dimen/_10sdp"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/_20sdp"
+            android:textStyle="bold"
+            tools:text="@string/finish_dialog_title" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            tools:text="@string/finish_dialog_subtitle" />
+
+        <TextView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/positive_btn"
+            android:layout_below="@id/subtitle"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:textSize="@dimen/_14sdp"
+            tools:text="@string/finish_dialog_message" />
+
+        <TextView
+            android:id="@+id/positive_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:padding="@dimen/_10sdp"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            tools:text="@string/save" />
+
+        <TextView
+            android:id="@+id/negative_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:padding="@dimen/_10sdp"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            tools:text="@android:string/cancel"
+            tools:ignore="RelativeOverlap" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

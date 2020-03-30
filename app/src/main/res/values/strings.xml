@@ -13,7 +13,7 @@
     <string name="history">history</string>
     <string name="type_race">type race</string>
     <string name="push">push</string>
-    <string name="reload">reload</string>
+    <string name="start">start</string>
     <string name="log_in_ore_create_if_does_not_exists">Log In ore create if does not exists</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -22,5 +22,22 @@
     <string name="password_can_not_be_empty">You must fill password field</string>
     <string name="log_in_failed">Log in failed</string>
     <string name="registration_failed">Registration failed</string>
+
+<!--    finish dialog-->
+    <string name="finish_dialog_title">You are finish!</string>
+    <string name="finish_dialog_subtitle">WPM score is %1$f</string>
+    <string name="finish_dialog_message">Do you wont save it?</string>
+    <string name="save">save</string>
+
+<!--    date format-->
+    <string name="week_ago">one week ago</string>
+    <string name="days_ago">%1$d days ago</string>
+    <string name="hours_ago">%1$d hours ago</string>
+    <string name="min_ago">%1$d min ago</string>
+    <string name="hour">hour</string>
+    <string name="hours">hours</string>
+    <string name="minutes_ago">%1$d minutes ago</string>
+    <string name="seconds_ago">%1$d seconds ago</string>
+    <string name="invalid_date">invalid date</string>
 
 </resources>

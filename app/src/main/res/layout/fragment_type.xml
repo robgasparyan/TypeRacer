@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="android.view.View" />
 
         <variable
             name="viewModel"
@@ -16,7 +15,106 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/_16sdp"
         tools:context=".fragment.TypeFragment">
+
+        <TextView
+            android:id="@+id/wpm_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Double.toString(viewModel.wpm)}"
+            android:textSize="@dimen/_16sdp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="25.6" />
+
+        <TextView
+            android:id="@+id/wpm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:text="@string/wpm"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/wpm_size"
+            app:layout_constraintEnd_toStartOf="@+id/wpm_size" />
+
+        <TextView
+            android:id="@+id/source_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.source}"
+            android:textColor="@color/colorSecondary"
+            android:textSize="@dimen/_14sdp"
+            android:textStyle="bold"
+            android:visibility="@{!viewModel.isLoading}"
+            app:layout_constraintBottom_toTopOf="@+id/text_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/wpm_size" />
+
+        <ProgressBar
+            android:layout_width="@dimen/_32sdp"
+            android:layout_height="@dimen/_32sdp"
+            android:visibility="@{viewModel.isLoading}"
+            app:layout_constraintBottom_toBottomOf="@id/source_text"
+            app:layout_constraintEnd_toEndOf="@id/source_text"
+            app:layout_constraintStart_toStartOf="@id/source_text"
+            app:layout_constraintTop_toTopOf="@id/source_text" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/text_input_layout"
+            style="@style/MyTextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            app:layout_constraintBottom_toTopOf="@id/progress_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.example.typeracer.view.BlockedSelectionEditText
+                android:id="@+id/edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:cursorVisible="false"
+                android:focusable="@{viewModel.isStarted()}"
+                android:focusableInTouchMode="@{viewModel.isStarted()}"
+                android:gravity="center"
+                android:inputType="textNoSuggestions"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_60sdp"
+                android:text="@{viewModel.typedText}"
+                android:textColor="@color/colorSecondary"
+                android:textSize="@dimen/_16sdp"
+                android:textStyle="bold"
+                app:openKeyboard="@{viewModel.isStarted()}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:progress="@{viewModel.progress}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_input_layout"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/action_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{(view) -> viewModel.onActionClick()}"
+            android:text="@{viewModel.isStarted() ? @android:string/cancel : @string/start }"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

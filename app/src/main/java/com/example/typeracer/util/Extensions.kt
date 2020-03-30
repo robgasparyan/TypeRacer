@@ -1,5 +1,9 @@
 package com.example.typeracer.util
 
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import com.example.typeracer.model.TextPaint
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.*
@@ -19,3 +23,11 @@ fun Double.toDecimal2(): Double {
     return decimal2.format(this).toDouble()
 }
 
+fun SpannableString.paintCharacters(vararg textPaint: TextPaint) {
+    this.apply {
+        textPaint.forEach {
+            val fcs = ForegroundColorSpan(it.color)
+            setSpan(fcs, it.start, it.end, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+        }
+    }
+}
