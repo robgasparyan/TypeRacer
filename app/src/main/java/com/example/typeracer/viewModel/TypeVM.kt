@@ -15,11 +15,11 @@ import com.example.typeracer.repo.ResponseListener
 import com.example.typeracer.repo.model.Race
 import com.example.typeracer.repo.model.RaceResult
 import com.example.typeracer.repo.TextRepo
-import com.example.typeracer.util.TextHelper
 import com.example.typeracer.util.paintCharacters
 import com.example.typeracer.util.toDecimal2
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 import kotlin.math.min
 
 class TypeVM(
@@ -148,8 +148,13 @@ class TypeVM(
 
     private fun updateWpm(correctCharCount: Int) {
         val spentTimeInMls = System.currentTimeMillis() - startTime
-        val newWpm = TextHelper.calculateGrossWpm(correctCharCount, spentTimeInMls)
+        val newWpm = calculateGrossWpm(correctCharCount, spentTimeInMls)
         wpm.set(newWpm.toDecimal2())
+    }
+
+    private fun calculateGrossWpm(correctInputs: Int, spentTimeInMls: Long): Double {
+        val spentMinutes = TimeUnit.MILLISECONDS.toSeconds(spentTimeInMls) / 60.0
+        return correctInputs / spentMinutes
     }
 
     private fun updateProgress(correctCharCount: Int) {

@@ -23,13 +23,18 @@
     <string name="log_in_failed">Log in failed</string>
     <string name="registration_failed">Registration failed</string>
 
-<!--    finish dialog-->
+    <!--    profile screen -->
+    <string name="my_profile">my profile</string>
+    <string name="log_out">log out</string>
+    <string name="display_name">display name</string>
+
+    <!--    finish dialog-->
     <string name="finish_dialog_title">You are finish!</string>
     <string name="finish_dialog_subtitle">WPM score is %1$f</string>
     <string name="finish_dialog_message">Do you wont save it?</string>
     <string name="save">save</string>
 
-<!--    date format-->
+    <!--    date format-->
     <string name="week_ago">one week ago</string>
     <string name="days_ago">%1$d days ago</string>
     <string name="hours_ago">%1$d hours ago</string>

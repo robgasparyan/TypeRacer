@@ -19,6 +19,7 @@ val viewModelModule = module {
     viewModel { LastHistoryPageVM(get(), get()) }
     viewModel { TopHistoryPageVM(get(), get()) }
     viewModel { MyHistoryPageVM(get(), get()) }
+    viewModel { ProfileVM(get()) }
 
 }
 

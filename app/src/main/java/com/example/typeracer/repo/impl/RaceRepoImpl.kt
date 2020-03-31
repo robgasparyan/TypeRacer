@@ -8,9 +8,7 @@ import com.example.typeracer.repo.model.Race
 import com.example.typeracer.repo.model.RaceResult
 import com.example.typeracer.repo.model.UserRace
 import com.example.typeracer.repo.prefs.Preferences
-import com.example.typeracer.util.PrefConstants
-import com.example.typeracer.util.sublistUntil
-import com.example.typeracer.util.toDecimal2
+import com.example.typeracer.util.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,8 +17,6 @@ import retrofit2.Response
 class RaceRepoImpl : RaceRepo {
 
     private var jsonApiId: String? = Preferences.getString(PrefConstants.MY_JSON_API_ID, "6x7qw")
-
-    private var userId: String = "armen"
 
     override fun createJsonApiId() {
         if (jsonApiId.isNullOrEmpty()) {
@@ -62,7 +58,7 @@ class RaceRepoImpl : RaceRepo {
     override fun getMyself(count: Int, listener: ResponseListener<List<Race>?>) {
         getHistory(object : ResponseListener<Map<String, RaceResult>?> {
             override fun onResponse(response: Map<String, RaceResult>?) {
-                val historyList = response?.get(userId)?.history
+                val historyList = response?.get(FirebaseAuthManager.getCurrentUser()?.uid)?.history
                 val myRace =
                     historyList?.sortedBy { it.time }?.reversed()?.sublistUntil(index = count)
                 listener.onResponse(myRace)
@@ -77,8 +73,9 @@ class RaceRepoImpl : RaceRepo {
     override fun addRace(race: Race, listener: ResponseListener<Map<String, RaceResult>?>) {
         getHistory(object : ResponseListener<Map<String, RaceResult>?> {
             override fun onResponse(response: Map<String, RaceResult>?) {
-                addNewItem(response, race)
-                updateRace(response, listener)
+                val mutableResponse = response?.toMutableMap()
+                updatePersonalData(mutableResponse, race)
+                updateRace(mutableResponse?.toMutableMap(), listener)
             }
 
             override fun onFailure() {
@@ -108,8 +105,8 @@ class RaceRepoImpl : RaceRepo {
             override fun onResponse(response: Map<String, RaceResult>?) {
                 val userRace = arrayListOf<UserRace>()
                 response?.let { it ->
-                    for ((key, value) in it) {
-                        userRace.add(convertToUserRace(key, value))
+                    for (entry in it) {
+                        userRace.add(convertToUserRace(entry.value))
                     }
                 }
                 listener.onResponse(userRace)
@@ -121,11 +118,22 @@ class RaceRepoImpl : RaceRepo {
         })
     }
 
-    private fun addNewItem(data: Map<String, RaceResult?>?, race: Race) {
-        data?.get(userId)?.history?.add(race)
+    private fun updatePersonalData(data: MutableMap<String, RaceResult>?, race: Race) {
+        FirebaseAuthManager.getCurrentUser()?.let { fbUser ->
+            val personalInfo = data?.get(fbUser.uid)
+            if (personalInfo == null) { //add at first time
+                val raceResult = RaceResult().also {
+                    it.email = fbUser.email
+                    it.history.add(race)
+                }
+                data?.put(fbUser.uid, raceResult)
+            } else { //update exist info
+                data.get(fbUser.uid)?.history?.add(race)
+            }
+        }
     }
 
-    private fun convertToUserRace(name: String, recent: RaceResult): UserRace {
+    private fun convertToUserRace(recent: RaceResult): UserRace {
         var totalWpm = 0.0
         var lastPlayedTime = 0L
         val racerResultList = recent.history
@@ -138,7 +146,8 @@ class RaceRepoImpl : RaceRepo {
             }
         }
         val average = totalWpm / racerResultList.size
-        return UserRace(name, average.toDecimal2(), lastPlayedTime)
+        val displayName = TextHelper.emailToDisplayName(recent.email) ?: "missed name"
+        return UserRace(displayName, average.toDecimal2(), lastPlayedTime)
     }
 
     private fun createJsonApiId(cb: (String?) -> Unit?) {
