@@ -11,7 +11,10 @@ import androidx.databinding.ObservableInt
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import com.example.typeracer.R
+import com.example.typeracer.model.Dialog
 import com.example.typeracer.model.TextPaint
+import com.example.typeracer.model.TimeoutDialog
+import com.example.typeracer.model.WinDialog
 import com.example.typeracer.repo.RaceRepo
 import com.example.typeracer.repo.ResponseListener
 import com.example.typeracer.repo.model.Race
@@ -30,9 +33,9 @@ class TypeVM(
 ) : BaseVM(app) {
 
     //Live data, for observe view(fragment) changes
-    private val _showFinishDialog = MutableLiveData<Race>()
-    val showFinishDialog: LiveData<Race>
-        get() = _showFinishDialog
+    private val _showDialog = MutableLiveData<Dialog>()
+    val showDialog: LiveData<Dialog>
+        get() = _showDialog
     val lifecycleLiveData = MutableLiveData<Lifecycle.Event>()
     private val observer = Observer<Lifecycle.Event> {
         when (it) {
@@ -127,11 +130,12 @@ class TypeVM(
     private fun isFinished(progress: Int) = progress >= 100
 
     private fun showFinishDialog() {
-        _showFinishDialog.postValue(Race(wpm.get().toDecimal2(), System.currentTimeMillis()))
+        _showDialog.postValue(WinDialog(Race(wpm.get().toDecimal2(), System.currentTimeMillis())))
     }
 
     private fun showTimeoutDialog() {
-        _showFinishDialog.postValue(Race(wpm.get().toDecimal2(), System.currentTimeMillis()))
+        val maxTime = DateTimeHelper.getCountDownTime(Constants.COUNT_DOWN_TIME)
+        _showDialog.postValue(TimeoutDialog(maxTime))
     }
 
     private fun startCountDownTimer() {

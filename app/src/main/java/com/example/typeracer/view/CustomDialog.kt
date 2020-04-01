@@ -18,22 +18,32 @@ class CustomDialog(context: Context?) : AppCompatDialog(context) {
     }
 
     fun setTitleStrRes(@StringRes strId: Int): CustomDialog {
-        findViewById<TextView>(R.id.title)?.setText(strId)
+        findViewById<TextView>(R.id.title)?.apply {
+            visibility = View.VISIBLE
+            setText(strId)
+        }
         return this
     }
 
     fun setSubTitle(text: String): CustomDialog {
-        findViewById<TextView>(R.id.subtitle)?.text = text
+        findViewById<TextView>(R.id.subtitle)?.apply {
+            visibility = View.VISIBLE
+            this.text = text
+        }
         return this
     }
 
     fun setMessageStrRes(@StringRes strId: Int): CustomDialog {
-        findViewById<TextView>(R.id.message)?.setText(strId)
+        findViewById<TextView>(R.id.message)?.apply {
+            visibility = View.VISIBLE
+            setText(strId)
+        }
         return this
     }
 
     fun setPositiveButton(@StringRes strId: Int, cb: View.OnClickListener? = null): CustomDialog {
         findViewById<TextView>(R.id.positive_btn)?.apply {
+            visibility = View.VISIBLE
             setText(strId)
             setOnClickListener {
                 dismiss()
@@ -45,6 +55,7 @@ class CustomDialog(context: Context?) : AppCompatDialog(context) {
 
     fun setNegativeButton(@StringRes strId: Int, cb: View.OnClickListener? = null): CustomDialog {
         findViewById<TextView>(R.id.negative_btn)?.apply {
+            visibility = View.VISIBLE
             setText(strId)
             setOnClickListener {
                 dismiss()

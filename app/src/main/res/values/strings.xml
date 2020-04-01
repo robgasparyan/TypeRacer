@@ -32,7 +32,12 @@
     <string name="finish_dialog_title">You are finish!</string>
     <string name="finish_dialog_subtitle">WPM score is %1$f</string>
     <string name="finish_dialog_message">Do you wont save it?</string>
-    <string name="save">save</string>
+    <string name="save">Save</string>
+
+    <!--    timeout dialog-->
+    <string name="timeout_dialog_title">Timeout!</string>
+    <string name="timeout_dialog_subtitle">Max. time (%1$s) limit reached</string>
+    <string name="timeout_dialog_message">Don\'t worry, try again</string>
 
     <!--    date format-->
     <string name="week_ago">one week ago</string>

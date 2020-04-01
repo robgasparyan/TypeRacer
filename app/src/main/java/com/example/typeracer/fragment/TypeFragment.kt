@@ -10,8 +10,9 @@ import androidx.lifecycle.Observer
 import com.example.typeracer.BR
 import com.example.typeracer.R
 import com.example.typeracer.databinding.FragmentTypeBinding
+import com.example.typeracer.model.TimeoutDialog
+import com.example.typeracer.model.WinDialog
 import com.example.typeracer.repo.model.Race
-import com.example.typeracer.util.toDecimal2
 import com.example.typeracer.view.CustomDialog
 import com.example.typeracer.viewModel.TypeVM
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -32,13 +33,17 @@ class TypeFragment : BaseFragment<FragmentTypeBinding, TypeVM>() {
         viewDataBinding.editText.doOnTextChanged { text, _, _, _ ->
             vm.textChanged(text.toString())
         }
-        vm.showFinishDialog.observe(this as LifecycleOwner, Observer(this::showWinDialog))
+        vm.showDialog.observe(this as LifecycleOwner, Observer {
+            when (it) {
+                is WinDialog -> showWinDialog(it.race)
+                is TimeoutDialog -> showTimeoutDialog(it.maxTime)
+            }
+        })
     }
 
     private fun showWinDialog(race: Race) {
         context?.let {
-            val subtitle =
-                String.format(it.getString(R.string.finish_dialog_subtitle), race.wpm.toDecimal2())
+            val subtitle = String.format(it.getString(R.string.finish_dialog_subtitle), race.wpm)
             CustomDialog(it)
                 .setTitleStrRes(R.string.finish_dialog_title)
                 .setSubTitle(subtitle)
@@ -49,6 +54,17 @@ class TypeFragment : BaseFragment<FragmentTypeBinding, TypeVM>() {
                 }).setNegativeButton(android.R.string.cancel, View.OnClickListener {
                     vm.prepareNewRace()
                 }).show()
+        }
+    }
+
+    private fun showTimeoutDialog(maxTime: String) {
+        context?.let {
+            CustomDialog(it)
+                .setTitleStrRes(R.string.timeout_dialog_title)
+                .setSubTitle(String.format(it.getString(R.string.timeout_dialog_subtitle), maxTime))
+                .setMessageStrRes(R.string.timeout_dialog_message)
+                .setPositiveButton(android.R.string.ok, null)
+                .show()
         }
     }
 

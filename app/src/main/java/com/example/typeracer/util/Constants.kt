@@ -9,5 +9,6 @@ object Constants {
 
     // type race prefs
     const val COUNT_DOWN_TIME: Long = 3 * 60 * 1000 // three minutes
+    const val SOURCE_TEXT_MAX_SIZE = 240
 
 }
