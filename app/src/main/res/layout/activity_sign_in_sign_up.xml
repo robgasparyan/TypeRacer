@@ -80,15 +80,13 @@
 
                 <Button
                     android:id="@+id/btn_login"
+                    style="@style/AppTheme.Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:layout_marginBottom="@dimen/_20sdp"
-                    android:textSize="@dimen/_12ssp"
-                    android:background="@color/colorAccent"
-                    android:text="@string/login_or_register"
-                    android:textColor="@android:color/white"
-                    android:onClick="@{() -> viewModel.loginOrRegister()}"/>
+                    android:onClick="@{() -> viewModel.loginOrRegister()}"
+                    android:text="@string/login_or_register" />
 
             </LinearLayout>
 

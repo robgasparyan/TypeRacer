@@ -22,6 +22,7 @@
             android:id="@+id/profile_image"
             android:layout_width="@dimen/_100sdp"
             android:layout_height="@dimen/_100sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:contentDescription="@string/my_profile"
             android:src="@drawable/ic_nav_profile"
             android:tint="@color/colorAccent"
@@ -77,8 +78,9 @@
 
         <Button
             android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/AppTheme.Button"
+            android:layout_width="@dimen/_72sdp"
+            android:layout_height="@dimen/_32sdp"
             android:layout_marginTop="@dimen/_30sdp"
             android:onClick="@{() -> viewModel.logOut()}"
             android:text="@string/log_out"

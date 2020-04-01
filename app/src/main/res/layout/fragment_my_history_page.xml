@@ -38,7 +38,7 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:ellipsize="end"
             android:gravity="center_vertical|end"
-            android:text="@string/date"
+            android:text="@string/time"
             android:textColor="@color/colorSecondary"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold"

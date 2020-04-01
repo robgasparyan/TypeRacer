@@ -8,7 +8,7 @@
     <string name="avg_wpm">avg. wpm</string>
     <string name="last_played_time">last played time</string>
     <string name="wpm">wpm</string>
-    <string name="date">date</string>
+    <string name="time">time</string>
     <string name="error_msg">Something went wrong please try again later</string>
     <string name="history">history</string>
     <string name="type_race">type race</string>
