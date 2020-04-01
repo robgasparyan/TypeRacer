@@ -2,6 +2,7 @@ package com.example.typeracer.viewModel
 
 import android.app.Application
 import android.os.CountDownTimer
+import android.os.Handler
 import android.text.SpannableString
 import android.widget.Toast
 import androidx.databinding.ObservableBoolean
@@ -11,10 +12,8 @@ import androidx.databinding.ObservableInt
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import com.example.typeracer.R
-import com.example.typeracer.model.Dialog
-import com.example.typeracer.model.TextPaint
-import com.example.typeracer.model.TimeoutDialog
-import com.example.typeracer.model.WinDialog
+import com.example.typeracer.view.CountDownTimerDialog
+import com.example.typeracer.model.*
 import com.example.typeracer.repo.RaceRepo
 import com.example.typeracer.repo.ResponseListener
 import com.example.typeracer.repo.model.Race
@@ -121,10 +120,25 @@ class TypeVM(
     }
 
     private fun onStart() {
-        isStarted.set(true)
-        isStarted.notifyChange()
-        startTime = System.currentTimeMillis()
-        startCountDownTimer()
+        _showDialog.postValue(CountDownDialog(5, object : CountDownTimerDialog.CompletedListener {
+            override fun onCompleted() {
+                changeIsStartedFlag()
+                startTime = System.currentTimeMillis()
+                startCountDownTimer()
+            }
+        }))
+    }
+
+    /**
+     * @property isStarted change focus of EditText, also open keyboard
+     * do it immediately after close a dialog is impossible
+     * so "isStarted" must be changed with delay.
+     */
+    private fun changeIsStartedFlag() {
+        Handler().postDelayed({
+            isStarted.set(true)
+            isStarted.notifyChange()
+        }, 150)
     }
 
     private fun isFinished(progress: Int) = progress >= 100
@@ -247,7 +261,10 @@ class TypeVM(
         source.notifyChange()
 
         countDownTime.set(DateTimeHelper.getCountDownTime(Constants.COUNT_DOWN_TIME))
+        countDownTime.notifyChange()
+
         countDownProgress.set(100)
+        countDownProgress.notifyChange()
         stopCountDownTimer()
     }
 

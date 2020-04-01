@@ -10,9 +10,11 @@ import androidx.lifecycle.Observer
 import com.example.typeracer.BR
 import com.example.typeracer.R
 import com.example.typeracer.databinding.FragmentTypeBinding
+import com.example.typeracer.model.CountDownDialog
 import com.example.typeracer.model.TimeoutDialog
 import com.example.typeracer.model.WinDialog
 import com.example.typeracer.repo.model.Race
+import com.example.typeracer.view.CountDownTimerDialog
 import com.example.typeracer.view.CustomDialog
 import com.example.typeracer.viewModel.TypeVM
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -37,8 +39,19 @@ class TypeFragment : BaseFragment<FragmentTypeBinding, TypeVM>() {
             when (it) {
                 is WinDialog -> showWinDialog(it.race)
                 is TimeoutDialog -> showTimeoutDialog(it.maxTime)
+                is CountDownDialog -> showTimerDialog(it)
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        vm.lifecycleLiveData.value = Lifecycle.Event.ON_RESUME
+    }
+
+    override fun onPause() {
+        super.onPause()
+        vm.lifecycleLiveData.value = Lifecycle.Event.ON_PAUSE
     }
 
     private fun showWinDialog(race: Race) {
@@ -68,14 +81,15 @@ class TypeFragment : BaseFragment<FragmentTypeBinding, TypeVM>() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        vm.lifecycleLiveData.value = Lifecycle.Event.ON_RESUME
-    }
-
-    override fun onPause() {
-        super.onPause()
-        vm.lifecycleLiveData.value = Lifecycle.Event.ON_PAUSE
+    private fun showTimerDialog(dialogModel: CountDownDialog) {
+        activity?.let {
+            lifecycle.addObserver(CountDownTimerDialog(it, dialogModel.time)
+                    .setBackgroundDim(0.7f)
+                    .addLastText(R.string.start)
+                    .setCompletedListener(dialogModel.completedListener)
+                    .safeShow()
+            )
+        }
     }
 
 }
