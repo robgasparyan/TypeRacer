@@ -36,7 +36,7 @@
             android:layout_marginTop="@dimen/_16sdp"
             android:text="@{viewModel.profileName}"
             android:textColor="@color/colorSecondary"
-            android:textSize="@dimen/_16sdp"
+            android:textSize="@dimen/_16ssp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_image" />
@@ -48,7 +48,7 @@
             android:gravity="start"
             android:text="@string/display_name"
             android:textColor="@color/colorSecondary"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintStart_toStartOf="@+id/display_name"
             app:layout_constraintTop_toBottomOf="@+id/display_name" />
 
@@ -59,7 +59,7 @@
             android:layout_marginTop="@dimen/_16sdp"
             android:text="@{viewModel.profileEmail}"
             android:textColor="@color/colorSecondary"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/display_name_hint"
             app:layout_constraintTop_toBottomOf="@+id/display_name_hint" />
@@ -71,7 +71,7 @@
             android:gravity="start"
             android:text="@string/email"
             android:textColor="@color/colorSecondary"
-            android:textSize="@dimen/_10sdp"
+            android:textSize="@dimen/_10ssp"
             app:layout_constraintStart_toStartOf="@+id/email"
             app:layout_constraintTop_toBottomOf="@+id/email" />
 

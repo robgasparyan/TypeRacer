@@ -140,6 +140,7 @@ class TypeVM(
             override fun onTick(mlsUntilFinished: Long) {
                 updateTimerUI(mlsUntilFinished)
             }
+
             override fun onFinish() {
                 showTimeoutDialog()
                 prepareNewRace()
@@ -147,7 +148,7 @@ class TypeVM(
         }.start()
     }
 
-    private fun updateTimerUI(mlsUntilFinished: Long){
+    private fun updateTimerUI(mlsUntilFinished: Long) {
         val s = mlsUntilFinished percentFrom Constants.COUNT_DOWN_TIME
         countDownProgress.set(s.toInt())
         countDownTime.set(DateTimeHelper.getCountDownTime(mlsUntilFinished))

@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textSize="@dimen/_20sdp"
+            android:textSize="@dimen/_20ssp"
             android:textStyle="bold"
             tools:text="@string/finish_dialog_title" />
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/title"
             android:layout_centerHorizontal="true"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             tools:text="@string/finish_dialog_subtitle" />
 
@@ -41,7 +41,7 @@
             android:gravity="center_vertical"
             android:paddingStart="@dimen/_10sdp"
             android:paddingEnd="@dimen/_10sdp"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_14ssp"
             tools:text="@string/finish_dialog_message" />
 
         <TextView
@@ -51,7 +51,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"
             android:padding="@dimen/_10sdp"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             tools:text="@string/save" />
 
@@ -62,7 +62,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:padding="@dimen/_10sdp"
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_14ssp"
             android:textStyle="bold"
             tools:text="@android:string/cancel"
             tools:ignore="RelativeOverlap" />
