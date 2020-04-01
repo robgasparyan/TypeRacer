@@ -7,6 +7,14 @@ import java.util.concurrent.TimeUnit
 
 object DateTimeHelper {
 
+    fun getCountDownTime(millisUntilFinished: Long): String {
+        val secondsUntilFinished = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)
+        return when {
+            secondsUntilFinished > 60L -> "${TimeUnit.SECONDS.toMinutes(secondsUntilFinished)} m"
+            else -> "$secondsUntilFinished s"
+        }
+    }
+
     fun toUserFriendlyDate(context: Context, data: Long): String {
         try {
             val past = Date(data)

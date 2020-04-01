@@ -31,3 +31,7 @@ fun SpannableString.paintCharacters(vararg textPaint: TextPaint) {
         }
     }
 }
+
+infix fun Int.percentFrom(totalCount: Int) = (this * 100) / totalCount
+
+infix fun Long.percentFrom(totalCount: Long) = (this * 100) / totalCount

@@ -3,7 +3,7 @@ package com.example.typeracer.repo.prefs
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.typeracer.TypeRacerApplication
-import com.example.typeracer.util.PrefConstants
+import com.example.typeracer.util.Constants
 
 
 object Preferences {
@@ -12,7 +12,7 @@ object Preferences {
 
     init {
         val context = TypeRacerApplication.appContext
-        sharedPref = context.getSharedPreferences(PrefConstants.SHARED_PREF_NAME, Context.MODE_PRIVATE)
+        sharedPref = context.getSharedPreferences(Constants.SHARED_PREF_NAME, Context.MODE_PRIVATE)
     }
 
     fun putString(KEY_NAME: String, value: String?) {

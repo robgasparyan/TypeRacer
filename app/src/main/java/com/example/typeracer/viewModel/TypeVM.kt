@@ -1,6 +1,7 @@
 package com.example.typeracer.viewModel
 
 import android.app.Application
+import android.os.CountDownTimer
 import android.text.SpannableString
 import android.widget.Toast
 import androidx.databinding.ObservableBoolean
@@ -8,6 +9,7 @@ import androidx.databinding.ObservableDouble
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.*
+import androidx.lifecycle.Observer
 import com.example.typeracer.R
 import com.example.typeracer.model.TextPaint
 import com.example.typeracer.repo.RaceRepo
@@ -15,8 +17,7 @@ import com.example.typeracer.repo.ResponseListener
 import com.example.typeracer.repo.model.Race
 import com.example.typeracer.repo.model.RaceResult
 import com.example.typeracer.repo.TextRepo
-import com.example.typeracer.util.paintCharacters
-import com.example.typeracer.util.toDecimal2
+import com.example.typeracer.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -49,9 +50,13 @@ class TypeVM(
     val isLoading = ObservableBoolean(true)
     val typedText = ObservableField("")
     val isStarted = ObservableBoolean(false)
+    val countDownTime = ObservableField<String>()
+    val countDownProgress = ObservableInt(100)
 
+    //locale props
     private var startTime: Long = 0
     private var correctCharCount = 0
+    private var countDownTimer: CountDownTimer? = null
 
     init {
         lifecycleLiveData.observeForever(observer)
@@ -59,6 +64,7 @@ class TypeVM(
 
     override fun onCleared() {
         lifecycleLiveData.removeObserver(observer)
+        stopCountDownTimer()
         super.onCleared()
     }
 
@@ -101,36 +107,54 @@ class TypeVM(
         }
     }
 
-    private infix fun Int.percentFrom(totalCount: Int) = (this * 100) / totalCount
-
+    //lifecycle state
     private fun onResume() {
         prepareNewRace()
     }
 
+    //lifecycle state
     private fun onPause() {
         resetProperties()
-        stopTimer()
     }
 
     private fun onStart() {
         isStarted.set(true)
         isStarted.notifyChange()
         startTime = System.currentTimeMillis()
-        startTimer()
-    }
-
-    private fun startTimer() {
-        //todo
-    }
-
-    private fun stopTimer() {
-        //todo
+        startCountDownTimer()
     }
 
     private fun isFinished(progress: Int) = progress >= 100
 
     private fun showFinishDialog() {
         _showFinishDialog.postValue(Race(wpm.get().toDecimal2(), System.currentTimeMillis()))
+    }
+
+    private fun showTimeoutDialog() {
+        _showFinishDialog.postValue(Race(wpm.get().toDecimal2(), System.currentTimeMillis()))
+    }
+
+    private fun startCountDownTimer() {
+        val countDownInterval = TimeUnit.SECONDS.toMillis(1)
+        countDownTimer = object : CountDownTimer(Constants.COUNT_DOWN_TIME, countDownInterval) {
+            override fun onTick(mlsUntilFinished: Long) {
+                updateTimerUI(mlsUntilFinished)
+            }
+            override fun onFinish() {
+                showTimeoutDialog()
+                prepareNewRace()
+            }
+        }.start()
+    }
+
+    private fun updateTimerUI(mlsUntilFinished: Long){
+        val s = mlsUntilFinished percentFrom Constants.COUNT_DOWN_TIME
+        countDownProgress.set(s.toInt())
+        countDownTime.set(DateTimeHelper.getCountDownTime(mlsUntilFinished))
+    }
+
+    private fun stopCountDownTimer() {
+        countDownTimer?.cancel()
     }
 
     private fun updateCorrectCharCount(newText: String): Int {
@@ -216,6 +240,10 @@ class TypeVM(
 
         source.set(SpannableString(""))
         source.notifyChange()
+
+        countDownTime.set(DateTimeHelper.getCountDownTime(Constants.COUNT_DOWN_TIME))
+        countDownProgress.set(100)
+        stopCountDownTimer()
     }
 
 }

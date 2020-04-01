@@ -16,13 +16,13 @@ import retrofit2.Response
 
 class RaceRepoImpl : RaceRepo {
 
-    private var jsonApiId: String? = Preferences.getString(PrefConstants.MY_JSON_API_ID, "6x7qw")
+    private var jsonApiId: String? = Preferences.getString(Constants.MY_JSON_API_ID, "6x7qw")
 
     override fun createJsonApiId() {
         if (jsonApiId.isNullOrEmpty()) {
             createJsonApiId {
                 jsonApiId = it
-                Preferences.putString(PrefConstants.MY_JSON_API_ID, jsonApiId)
+                Preferences.putString(Constants.MY_JSON_API_ID, jsonApiId)
             }
         }
     }

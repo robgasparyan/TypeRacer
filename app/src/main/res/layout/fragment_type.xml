@@ -18,6 +18,29 @@
         android:padding="@dimen/_16sdp"
         tools:context=".fragment.TypeFragment">
 
+        <ProgressBar
+            android:id="@+id/count_down_progress"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="@dimen/_44sdp"
+            android:layout_height="@dimen/_44sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:max="100"
+            android:progress="@{viewModel.countDownProgress}"
+            android:progressDrawable="@drawable/count_down_progress"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/count_down_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.countDownTime}"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="@id/count_down_progress"
+            app:layout_constraintEnd_toEndOf="@id/count_down_progress"
+            app:layout_constraintStart_toStartOf="@id/count_down_progress"
+            app:layout_constraintTop_toTopOf="@id/count_down_progress" />
+
         <TextView
             android:id="@+id/wpm_size"
             android:layout_width="wrap_content"
@@ -25,8 +48,9 @@
             android:text="@{Double.toString(viewModel.wpm)}"
             android:textSize="@dimen/_16sdp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/count_down_progress"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/count_down_progress"
             tools:text="25.6" />
 
         <TextView
@@ -51,7 +75,7 @@
             app:layout_constraintBottom_toTopOf="@+id/text_input_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wpm_size" />
+            app:layout_constraintTop_toBottomOf="@+id/count_down_progress" />
 
         <ProgressBar
             android:layout_width="@dimen/_32sdp"
