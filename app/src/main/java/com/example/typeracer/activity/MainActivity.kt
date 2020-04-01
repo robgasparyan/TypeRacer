@@ -11,25 +11,28 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : FragmentActivity() {
 
+    private lateinit var navigation: BottomNavigationView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Fragments.addFragment(this, R.id.fragment_container, TypeFragment())
 
-        val navigation = findViewById<BottomNavigationView>(R.id.navigation)
+        navigation = findViewById(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(getItemSelectedListener())
     }
 
     private fun getItemSelectedListener(): BottomNavigationView.OnNavigationItemSelectedListener {
         return BottomNavigationView.OnNavigationItemSelectedListener {
-            Fragments.replaceFragment(
-                this, R.id.fragment_container, when (it.itemId) {
-                    R.id.navigation_type_race -> TypeFragment()
-                    R.id.navigation_history -> HistoryFragment()
-                    R.id.navigation_profile -> ProfileFragment()
-                    else -> return@OnNavigationItemSelectedListener false
-                }
-            )
+            if (it.itemId != navigation.selectedItemId) {
+                Fragments.replaceFragment(this, R.id.fragment_container, when (it.itemId) {
+                        R.id.navigation_type_race -> TypeFragment()
+                        R.id.navigation_history -> HistoryFragment()
+                        R.id.navigation_profile -> ProfileFragment()
+                        else -> return@OnNavigationItemSelectedListener false
+                    }
+                )
+            }
             return@OnNavigationItemSelectedListener true
         }
     }

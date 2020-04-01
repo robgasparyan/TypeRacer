@@ -19,7 +19,9 @@ class LastHistoryPageVM(app: Application, raceRepo: RaceRepo) : BaseVM(app) {
         raceRepo.getLasts(listener = object : ResponseListener<List<UserRace>> {
             override fun onResponse(response: List<UserRace>) {
                 showProgress.set(false)
-                raceHistoryAdapter.set(RaceHistoryAdapter(response))
+                if (!response.isNullOrEmpty()) {
+                    raceHistoryAdapter.set(RaceHistoryAdapter(response))
+                }
             }
 
             override fun onFailure() {

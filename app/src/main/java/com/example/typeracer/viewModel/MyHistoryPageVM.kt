@@ -19,7 +19,9 @@ class MyHistoryPageVM(app: Application, raceRepo: RaceRepo) : BaseVM(app) {
         raceRepo.getMyself(listener = object : ResponseListener<List<Race>?> {
             override fun onResponse(response: List<Race>?) {
                 showProgress.set(false)
-                myRaceHistoryAdapter.set(MyRaceHistoryAdapter(response))
+                if (!response.isNullOrEmpty()) {
+                    myRaceHistoryAdapter.set(MyRaceHistoryAdapter(response))
+                }
             }
 
             override fun onFailure() {

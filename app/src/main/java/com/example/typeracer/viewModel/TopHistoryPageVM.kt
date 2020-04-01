@@ -19,7 +19,9 @@ class TopHistoryPageVM(app: Application, raceRepo: RaceRepo) : BaseVM(app) {
         raceRepo.getTops(listener = object : ResponseListener<List<UserRace>> {
             override fun onResponse(response: List<UserRace>) {
                 showProgress.set(false)
-                topHistoryAdapter.set(RaceHistoryAdapter(response))
+                if (!response.isNullOrEmpty()) {
+                    topHistoryAdapter.set(RaceHistoryAdapter(response))
+                }
             }
 
             override fun onFailure() {
