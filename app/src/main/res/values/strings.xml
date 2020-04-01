@@ -30,7 +30,7 @@
 
     <!--    finish dialog-->
     <string name="finish_dialog_title">You are finish!</string>
-    <string name="finish_dialog_subtitle">WPM score is %1$f</string>
+    <string name="finish_dialog_subtitle">WPM score is %1$.2f</string>
     <string name="finish_dialog_message">Do you wont save it?</string>
     <string name="save">Save</string>
 

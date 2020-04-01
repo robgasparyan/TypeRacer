@@ -105,6 +105,7 @@
                 android:cursorVisible="false"
                 android:focusable="@{viewModel.isStarted}"
                 android:focusableInTouchMode="@{viewModel.isStarted}"
+                android:enabled="@{viewModel.isStarted}"
                 android:gravity="center"
                 android:inputType="textNoSuggestions"
                 android:paddingStart="@dimen/_10sdp"
