@@ -103,17 +103,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:cursorVisible="false"
-                android:focusable="@{viewModel.isStarted()}"
-                android:focusableInTouchMode="@{viewModel.isStarted()}"
+                android:focusable="@{viewModel.isStarted}"
+                android:focusableInTouchMode="@{viewModel.isStarted}"
                 android:gravity="center"
                 android:inputType="textNoSuggestions"
                 android:paddingStart="@dimen/_10sdp"
                 android:paddingEnd="@dimen/_60sdp"
                 android:text="@{viewModel.typedText}"
-                android:textColor="@color/colorSecondary"
+                android:textColor="@{viewModel.lastInputIsCorrect ? @color/colorSecondary : @android:color/holo_red_dark}"
                 android:textSize="@dimen/_16ssp"
                 android:textStyle="bold"
-                app:openKeyboard="@{viewModel.isStarted()}" />
+                app:openKeyboard="@{viewModel.isStarted}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -135,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{(view) -> viewModel.onActionClick()}"
-            android:text="@{viewModel.isStarted() ? @android:string/cancel : @string/start }"
+            android:text="@{viewModel.isStarted ? @android:string/cancel : @string/start }"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progress_bar" />

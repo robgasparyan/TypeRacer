@@ -23,7 +23,6 @@ import com.example.typeracer.util.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
-import kotlin.math.min
 
 class TypeVM(
     app: Application,
@@ -52,6 +51,7 @@ class TypeVM(
     val isLoading = ObservableBoolean(true)
     val typedText = ObservableField("")
     val isStarted = ObservableBoolean(false)
+    val lastInputIsCorrect = ObservableBoolean(true)
     val countDownTime = ObservableField<String>()
     val countDownProgress = ObservableInt(100)
 
@@ -71,14 +71,19 @@ class TypeVM(
     }
 
     fun textChanged(newText: String) {
-        if (!isStarted.get()) return
-        viewModelScope.launch(Dispatchers.IO) {
-            correctCharCount = updateCorrectCharCount(newText)
-            updateWpm(correctCharCount)
-            updateSourceTextSpannable(correctCharCount, newText.length)
-            updateProgress(correctCharCount)
-            if (isFinished(progress.get())) {
-                showFinishDialog()
+        if (!isStarted.get()) {
+            return
+        }
+        source.get()?.let {
+            viewModelScope.launch(Dispatchers.IO) {
+                correctCharCount = it.toString().lastIndexOfEquality(newText)
+                lastInputIsCorrect.set(newText.length == correctCharCount)
+                updateWpm(correctCharCount)
+                updateSourceTextSpannable(correctCharCount, newText.length)
+                updateProgress(correctCharCount)
+                if (isFinished(progress.get())) {
+                    showFinishDialog()
+                }
             }
         }
     }
@@ -120,7 +125,7 @@ class TypeVM(
     }
 
     private fun onStart() {
-        _showDialog.postValue(CountDownDialog(5, object : CountDownTimerDialog.CompletedListener {
+        _showDialog.postValue(CountDownDialog(4, object : CountDownTimerDialog.CompletedListener {
             override fun onCompleted() {
                 changeIsStartedFlag()
                 startTime = System.currentTimeMillis()
@@ -176,17 +181,13 @@ class TypeVM(
         countDownTimer?.cancel()
     }
 
-    private fun updateCorrectCharCount(newText: String): Int {
-        val source = source.get()
-        return when {
-            newText.length < correctCharCount -> newText.length
-            !source.isNullOrEmpty() && newText.length > source.length -> correctCharCount
-            !source.isNullOrEmpty() && isCorrect(newText) -> min(
-                correctCharCount.inc(),
-                source.length
-            )
-            else -> correctCharCount
+    private fun String.lastIndexOfEquality(compareWith: String): Int {
+        for ((index, value) in compareWith.withIndex()) {
+            if (value != this[index]) {
+                return index
+            }
         }
+        return compareWith.length
     }
 
     private fun updateWpm(correctCharCount: Int) {
@@ -220,12 +221,6 @@ class TypeVM(
             paintCharacters(correctTp, incorrectTp, tailTp)
         }
         source.notifyChange()
-    }
-
-    private fun isCorrect(newText: String): Boolean {
-        return newText.isNotEmpty() &&
-                newText.length <= source.get()?.length ?: 0 &&
-                source.get()?.substring(0, newText.length).equals(newText)
     }
 
     private fun loadSourceText() {
