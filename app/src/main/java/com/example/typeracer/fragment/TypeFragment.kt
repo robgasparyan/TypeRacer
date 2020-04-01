@@ -14,8 +14,7 @@ import com.example.typeracer.model.CountDownDialog
 import com.example.typeracer.model.TimeoutDialog
 import com.example.typeracer.model.WinDialog
 import com.example.typeracer.repo.model.Race
-import com.example.typeracer.view.CountDownTimerDialog
-import com.example.typeracer.view.CustomDialog
+import com.example.typeracer.util.DialogHelper
 import com.example.typeracer.viewModel.TypeVM
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -38,7 +37,7 @@ class TypeFragment : BaseFragment<FragmentTypeBinding, TypeVM>() {
         vm.showDialog.observe(this as LifecycleOwner, Observer {
             when (it) {
                 is WinDialog -> showWinDialog(it.race)
-                is TimeoutDialog -> showTimeoutDialog(it.maxTime)
+                is TimeoutDialog -> DialogHelper.showTimeoutDialog(context, it.maxTime)
                 is CountDownDialog -> showTimerDialog(it)
             }
         })
@@ -55,40 +54,17 @@ class TypeFragment : BaseFragment<FragmentTypeBinding, TypeVM>() {
     }
 
     private fun showWinDialog(race: Race) {
-        context?.let {
-            val subtitle = String.format(it.getString(R.string.finish_dialog_subtitle), race.wpm)
-            CustomDialog(it)
-                .setTitleStrRes(R.string.finish_dialog_title)
-                .setSubTitle(subtitle)
-                .setMessageStrRes(R.string.finish_dialog_message)
-                .setPositiveButton(R.string.save, View.OnClickListener {
-                    vm.saveRaceResult(race)
-                    vm.prepareNewRace()
-                }).setNegativeButton(android.R.string.cancel, View.OnClickListener {
-                    vm.prepareNewRace()
-                }).show()
-        }
-    }
-
-    private fun showTimeoutDialog(maxTime: String) {
-        context?.let {
-            CustomDialog(it)
-                .setTitleStrRes(R.string.timeout_dialog_title)
-                .setSubTitle(String.format(it.getString(R.string.timeout_dialog_subtitle), maxTime))
-                .setMessageStrRes(R.string.timeout_dialog_message)
-                .setPositiveButton(android.R.string.ok, null)
-                .show()
-        }
+        DialogHelper.showWinDialog(context, race, {
+            vm.saveRaceResult(race)
+            vm.prepareNewRace()
+        }, {
+            vm.prepareNewRace()
+        })
     }
 
     private fun showTimerDialog(dialogModel: CountDownDialog) {
         activity?.let {
-            lifecycle.addObserver(CountDownTimerDialog(it, dialogModel.time)
-                    .setBackgroundDim(0.7f)
-                    .addLastText(R.string.start)
-                    .setCompletedListener(dialogModel.completedListener)
-                    .safeShow()
-            )
+            lifecycle.addObserver(DialogHelper.showTimerDialog(it, dialogModel))
         }
     }
 

@@ -6,19 +6,17 @@ import com.example.typeracer.R
 import com.example.typeracer.fragment.HistoryFragment
 import com.example.typeracer.fragment.ProfileFragment
 import com.example.typeracer.fragment.TypeFragment
-import com.example.typeracer.util.FragmentHelper as Fragments
+import com.example.typeracer.util.NavigationHelper as Fragments
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : FragmentActivity() {
-
-    private lateinit var navigation: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Fragments.addFragment(this, R.id.fragment_container, TypeFragment())
 
-        navigation = findViewById(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(getItemSelectedListener())
     }
 

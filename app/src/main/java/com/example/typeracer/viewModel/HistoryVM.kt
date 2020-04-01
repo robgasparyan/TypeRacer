@@ -6,7 +6,6 @@ import com.example.typeracer.adapter.HistoryPagerAdapter
 
 class HistoryVM(app: Application, pagerAdapter: HistoryPagerAdapter) : BaseVM(app) {
 
-    var historyPagerAdapter = ObservableField(pagerAdapter)
-
+    val historyPagerAdapter = ObservableField(pagerAdapter)
 
 }

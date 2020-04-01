@@ -4,13 +4,9 @@ import android.content.Context
 import android.util.AttributeSet
 import com.google.android.material.textfield.TextInputEditText
 
-class BlockedSelectionEditText : TextInputEditText {
-
-    constructor(context: Context?) : super(context)
-
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-
-    constructor(context: Context?, attrs: AttributeSet?, style: Int) : super(context, attrs, style)
+class BlockedSelectionEditText @JvmOverloads constructor(
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : TextInputEditText(context, attrs, defStyleAttr) {
 
     override fun onSelectionChanged(selStart: Int, selEnd: Int) {
         //on selection move cursor to end of text

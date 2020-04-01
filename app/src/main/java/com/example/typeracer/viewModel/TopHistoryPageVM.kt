@@ -12,8 +12,8 @@ import com.example.typeracer.repo.model.UserRace
 
 class TopHistoryPageVM(app: Application, raceRepo: RaceRepo) : BaseVM(app) {
 
-    var showProgress = ObservableBoolean(true)
-    var topHistoryAdapter: ObservableField<RaceHistoryAdapter> = ObservableField()
+    val showProgress = ObservableBoolean(true)
+    val topHistoryAdapter: ObservableField<RaceHistoryAdapter> = ObservableField()
 
     init {
         raceRepo.getTops(listener = object : ResponseListener<List<UserRace>> {

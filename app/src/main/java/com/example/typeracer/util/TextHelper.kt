@@ -13,7 +13,7 @@ object TextHelper {
             .substring(0, Constants.SOURCE_TEXT_MAX_SIZE)
             .lastIndexOf(" ")
         return source.substring(0, indexOfLastSpace)
-            .replace("  ", "")
+            .replace("  ", " ")
             .trim(' ', ',')
     }
 }

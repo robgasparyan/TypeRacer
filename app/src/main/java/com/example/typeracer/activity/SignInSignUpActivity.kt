@@ -20,6 +20,7 @@ class SignInSignUpActivity : AppCompatActivity() {
         if (FirebaseAuthManager.isUserLoggedIn()) {
             // go to home activity if user logged in
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         } else {
             createActivityVM()
         }

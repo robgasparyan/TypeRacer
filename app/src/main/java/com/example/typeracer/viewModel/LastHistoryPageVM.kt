@@ -12,8 +12,8 @@ import com.example.typeracer.repo.model.UserRace
 
 class LastHistoryPageVM(app: Application, raceRepo: RaceRepo) : BaseVM(app) {
 
-    var showProgress = ObservableBoolean(true)
-    var raceHistoryAdapter: ObservableField<RaceHistoryAdapter> = ObservableField()
+    val showProgress = ObservableBoolean(true)
+    val raceHistoryAdapter: ObservableField<RaceHistoryAdapter> = ObservableField()
 
     init {
         raceRepo.getLasts(listener = object : ResponseListener<List<UserRace>> {

@@ -17,30 +17,34 @@ import com.google.android.material.textfield.TextInputLayout
 
 
 @BindingAdapter("android:visibility")
-fun visibility(view: View, visibility: Boolean) {
-    if (visibility) view.visibility = View.VISIBLE else view.visibility = View.GONE
+fun View.visibility(visibility: Boolean) {
+    this.visibility = if (visibility) {
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
 }
 
 @BindingAdapter("pagerAdapter")
-fun setPagerAdapter(view: ViewPager, adapter: PagerAdapter) {
-    view.adapter = adapter
+fun ViewPager.setPagerAdapter(adapter: PagerAdapter) {
+    this.adapter = adapter
 }
 
 @BindingAdapter("pager")
-fun bindViewPagerTabs(view: TabLayout, pagerView: ViewPager?) {
-    view.setupWithViewPager(pagerView, true)
+fun TabLayout.bindViewPagerTabs(pagerView: ViewPager?) {
+    this.setupWithViewPager(pagerView, true)
 }
 
 @BindingAdapter("itemDecoration")
 fun RecyclerView.itemDecoration(@ColorInt color: Int) {
-    val decorator =  DividerItemDecoration (color, 2)
+    val decorator = DividerItemDecoration(color, 2)
     addItemDecoration(decorator)
 }
 
 @BindingAdapter("errorText")
-fun setErrorMessage(view: TextInputLayout, errorMessage: String?) {
+fun TextInputLayout.setErrorMessage(errorMessage: String?) {
     errorMessage.let {
-        view.error = it
+        this.error = it
     }
 }
 
@@ -50,10 +54,10 @@ fun TextView.setDateFormatText(date: Long) {
 }
 
 @BindingAdapter("openKeyboard")
-fun openKeyboard(view: EditText, boolean: Boolean) {
+fun EditText.openKeyboard(boolean: Boolean) {
     if (boolean) {
-        view.requestFocus()
-        val imm = view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
-        imm?.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
+        this.requestFocus()
+        val imm = this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        imm?.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
     }
 }

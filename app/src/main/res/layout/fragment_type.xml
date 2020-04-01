@@ -101,7 +101,7 @@
             <com.example.typeracer.view.BlockedSelectionEditText
                 android:id="@+id/edit_text"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_44sdp"
                 android:cursorVisible="false"
                 android:focusable="@{viewModel.isStarted}"
                 android:focusableInTouchMode="@{viewModel.isStarted}"

@@ -10,7 +10,9 @@ object DateTimeHelper {
     fun getCountDownTime(millisUntilFinished: Long): String {
         val secondsUntilFinished = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished)
         return when {
-            secondsUntilFinished > 60L -> "${TimeUnit.SECONDS.toMinutes(secondsUntilFinished)} m"
+            secondsUntilFinished > 60L /*one minus*/ -> {
+                "${TimeUnit.SECONDS.toMinutes(secondsUntilFinished)} m"
+            }
             else -> "$secondsUntilFinished s"
         }
     }
@@ -31,8 +33,8 @@ object DateTimeHelper {
                 hours < 24 -> String.format(context.getString(R.string.hours_ago), hours)
                 else -> String.format(context.getString(R.string.days_ago), days)
             }
-        } catch (j: Exception) {
-            j.printStackTrace()
+        } catch (e: Exception) {
+            print(e.message)
         }
         return context.getString(R.string.invalid_date)
     }

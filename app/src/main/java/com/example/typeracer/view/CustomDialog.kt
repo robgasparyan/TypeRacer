@@ -41,25 +41,25 @@ class CustomDialog(context: Context?) : AppCompatDialog(context) {
         return this
     }
 
-    fun setPositiveButton(@StringRes strId: Int, cb: View.OnClickListener? = null): CustomDialog {
+    fun setPositiveButton(@StringRes strId: Int, cb: () -> Unit?): CustomDialog {
         findViewById<TextView>(R.id.positive_btn)?.apply {
             visibility = View.VISIBLE
             setText(strId)
             setOnClickListener {
                 dismiss()
-                cb?.onClick(it)
+                cb()
             }
         }
         return this
     }
 
-    fun setNegativeButton(@StringRes strId: Int, cb: View.OnClickListener? = null): CustomDialog {
+    fun setNegativeButton(@StringRes strId: Int, cb: () -> Unit?): CustomDialog {
         findViewById<TextView>(R.id.negative_btn)?.apply {
             visibility = View.VISIBLE
             setText(strId)
             setOnClickListener {
                 dismiss()
-                cb?.onClick(it)
+                cb()
             }
         }
         return this

@@ -10,7 +10,7 @@ import org.koin.core.parameter.parametersOf
 
 class HistoryFragment : BaseFragment<FragmentHistoryBinding, HistoryVM>() {
 
-    private val vm: HistoryVM by viewModel { parametersOf(activity?.supportFragmentManager) }
+    private val vm: HistoryVM by viewModel { parametersOf(childFragmentManager) }
 
     override fun getBindingVariable() = BR.viewModel
 

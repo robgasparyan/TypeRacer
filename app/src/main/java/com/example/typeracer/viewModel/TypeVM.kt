@@ -135,9 +135,9 @@ class TypeVM(
     }
 
     /**
-     * @property isStarted change focus of EditText, also open keyboard
-     * do it immediately after close a dialog is impossible
-     * so "isStarted" must be changed with delay.
+     * @property isStarted change focus of EditText.
+     * Opens the keyboard after closing the dialog with the delay
+     * Note: the keyboard opening can't be done immediately, it's required some delay
      */
     private fun changeIsStartedFlag() {
         Handler().postDelayed({

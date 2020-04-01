@@ -12,8 +12,8 @@ import com.example.typeracer.repo.model.Race
 
 class MyHistoryPageVM(app: Application, raceRepo: RaceRepo) : BaseVM(app) {
 
-    var showProgress = ObservableBoolean(true)
-    var myRaceHistoryAdapter: ObservableField<MyRaceHistoryAdapter> = ObservableField()
+    val showProgress = ObservableBoolean(true)
+    val myRaceHistoryAdapter: ObservableField<MyRaceHistoryAdapter> = ObservableField()
 
     init {
         raceRepo.getMyself(listener = object : ResponseListener<List<Race>?> {

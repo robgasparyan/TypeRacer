@@ -169,19 +169,21 @@ class RaceRepoImpl : RaceRepo {
         params: Map<String, RaceResult>?,
         listener: ResponseListener<Map<String, RaceResult>?>
     ) {
-        RetrofitClient.apiService.putBins(jsonApiId!!, params).enqueue(
-            object : Callback<Map<String, RaceResult>> {
-                override fun onResponse(
-                    call: Call<Map<String, RaceResult>>,
-                    res: Response<Map<String, RaceResult>>
-                ) {
-                    listener.onResponse(res.body())
-                }
+        jsonApiId?.let {
+            RetrofitClient.apiService.putBins(it, params).enqueue(
+                object : Callback<Map<String, RaceResult>> {
+                    override fun onResponse(
+                        call: Call<Map<String, RaceResult>>,
+                        res: Response<Map<String, RaceResult>>
+                    ) {
+                        listener.onResponse(res.body())
+                    }
 
-                override fun onFailure(call: Call<Map<String, RaceResult>>, t: Throwable) {
-                    listener.onFailure()
-                }
-            })
+                    override fun onFailure(call: Call<Map<String, RaceResult>>, t: Throwable) {
+                        listener.onFailure()
+                    }
+                })
+        }
     }
 
 }

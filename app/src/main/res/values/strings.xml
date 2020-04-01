@@ -14,7 +14,7 @@
     <string name="type_race">type race</string>
     <string name="push">push</string>
     <string name="start">Start</string>
-    <string name="log_in_ore_create_if_does_not_exists">Log In ore create if does not exists</string>
+    <string name="log_in_or_create_account">Login or create new account</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login_or_register">login or register</string>
